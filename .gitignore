@@ -15,6 +15,7 @@ db.sqlite3
 # venv
 .env2
 .venv
+venv
 
 
 # other
