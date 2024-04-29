@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mx-auto mt-5 px-4">
+    <h1 class="text-2xl font-bold mb-3 text-gray-800">Книги в жанре: {{ genre.name }}</h1>
+    <form method="get" class="mb-4 flex gap-2">
+        <input type="text" name="q" placeholder="Поиск по книгам..." class="flex-1 border p-2 rounded" value="{{ request.GET.q }}">
+        <select name="sort" class="border p-2 rounded">
+            <option value="title">Сортировать по названию</option>
+            <option value="date" {% if request.GET.sort == 'date' %}selected{% endif %}>Сортировать по дате</option>
+        </select>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded">Применить</button>
+    </form>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {% for book in books %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-60 object-cover">
+            {% else %}
+            <img src="{% static 'images/no_cover.png' %}" alt="No cover available" class="w-full h-60 object-cover">
+            {% endif %}
+            <div class="p-3">
+                <h3 class="font-bold">{{ book.title }}</h3>
+                <p class="text-gray-700 text-base">{{ book.summary|truncatechars:50 }}</p>
+                <a href="{% url 'book_detail' book.id %}" class="text-blue-500 hover:text-blue-600">Читать</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include 'pagination.html' %}
+</div>
+{% endblock %}
