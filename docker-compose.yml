@@ -9,4 +9,4 @@ services:
       - ./media:/app/media
     ports:
     - "8011:8011"
-    command: bash -c "python manage.py migrate && gunicorn core.wsgi:application -w 4 -b 0.0.0.0:8011"
+    command: bash -c "python manage.py migrate && gunicorn core.wsgi:application -w 4 -b 0.0.0.0:8010"
