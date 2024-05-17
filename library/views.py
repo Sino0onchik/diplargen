@@ -118,7 +118,7 @@ class BookmarkUpdateView(generic.View):
 
 class RegisterView(FormView):
     form_class = UserRegistrationForm
-    template_name = 'auth/register.html'
+    template_name = 'register.html'
     success_url = '/'
 
     def form_valid(self, form):
